@@ -13,6 +13,7 @@ ASSIGNMENT_TAB_ID = "Template1_Control0_TabHeader2_Menutabs1_MenuTabAssignments"
 ATTENDENCE_TAB_ID = "Template1_Control0_TabHeader2_Menutabs1_MenuTabAttendance"
 GRADES_TAB_ID = "Template1_Control0_TabHeader2_Menutabs1_MenuTabGrades"
 TAB_TRANSITION_TIMEOUT = 0.5
+MAX_ELEMENT_WAIT_TIME = 5
 GRADE_TABLE_ID = "Template1_Control0_Table3"
 GRADE_AVERAGES_BUTTON_ID = "Template1_Control0_IconButtonAverage"
 GRADE_AVERAGES_TABLE_ID = "Template1_Control0_ASPxPopupClassAverage_PWC-1"

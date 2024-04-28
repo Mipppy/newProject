@@ -43,8 +43,8 @@ class SchooltoolDriver():
             self.sendUserInfo()
             self.waitUntilLoggedIn()
             self.scrape()
-            print(self.dictionaryOfScrapedData)
             self.quit()
+            return self.dictionaryOfScrapedData
         except Exception as e:
             print(e)
             self.quit()
@@ -55,7 +55,7 @@ class SchooltoolDriver():
         time.sleep(TAB_TRANSITION_TIMEOUT)
         self.dictionaryOfScrapedData["gradeHTML"] = self.driver.find_element(By.ID, GRADE_TABLE_ID).get_attribute("innerHTML")
         self.driver.find_element(By.ID, GRADE_AVERAGES_BUTTON_ID).click()
-        time.sleep(TAB_TRANSITION_TIMEOUT)
+        time.sleep(TAB_TRANSITION_TIMEOUT * 3)
         self.dictionaryOfScrapedData["averagesHTML"] = self.driver.find_element(By.ID, GRADE_AVERAGES_TABLE_ID).get_attribute("innerHTML")
         
     def scrapeBasicData(self):
@@ -74,8 +74,8 @@ class SchooltoolDriver():
         
     # Scrapes the pure HTML/Base64 as quickly as possible.  Parsing the HTML can be taken care of client side to save server resources and load time.
     def scrape(self):
-        self.scrapeBasicData()
         self.scrapeAttendenceData()
+        self.scrapeBasicData()
         self.scrapeGrades()
         
         #MUST scrape grades last.  Reading the averages MUST be the last thing to do, as it is impossible to leave the averages page once it is opened.
