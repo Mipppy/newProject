@@ -14,6 +14,8 @@ def index():
             return redirect("/")
         s = SchooltoolDriver(password, username)
         d = s.run()
+        if d == None:
+            return jsonify({"failed": 'error'})
         return jsonify(d)
     else:
         return render_template("index.html")

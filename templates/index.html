@@ -1,8 +1,4 @@
-{% extends 'layout.html' %}
-
-{% block title %} Login {% endblock %}
-
-{% block content %}
+{% extends 'layout.html' %} {% block title %} SchoolTool Login {% endblock %} {% block content %}
 <style>
     .removeScroll {
         -ms-overflow-style: none;
@@ -11,24 +7,24 @@
         /* for Firefox */
         overflow-y: scroll;
     }
-
+    
     .removeScroll::-webkit-scrollbar {
         display: none;
         /* for Chrome, Safari, and Opera */
     }
+    
     .something-btn {
         transition: .4s !important;
     }
+    
     .something-btn:hover {
         background-color: #0b5ed7 !important;
         transition: .4s !important;
     }
 </style>
-<div class="bg-image"
-    style="background-image: url('/static/images/bg.jpg'); height: 100vh; background-repeat: no-repeat;">
+<div class="bg-image" style="background-image: url('/static/images/bg.jpg'); height: 100vh; background-repeat: no-repeat;">
     <div id="loginContainer" class="first justify-content-md-center align-items-center h-75 d-flex">
-        <form method="post" action="/" id="loginForm"
-            class="form w-25 d-flex flex-column align-items-center bg-white col-5 rounded p-5">
+        <form method="post" action="/" id="loginForm" class="form w-25 d-flex flex-column align-items-center bg-white col-5 rounded p-5">
             <img src="https://www2.schooltool.com/queensbury/core/identityserver/districtlogo.ashx">
             <div class="form-group col-11 mt-2">
                 <input type="text" name="username" placeholder="Username" id="usr" class="form-control p-3">
@@ -40,16 +36,27 @@
                 <hr>
             </div>
             <div class="form-group">
-                <input type="submit" name="submit" value="LOG IN" class="btn btn-primary something-btn"
-                    style="background-color: rgb(0, 55, 100) ; font-size:22px !important;">
+                <input type="submit" name="submit" value="LOG IN" class="btn btn-primary something-btn" style="background-color: rgb(0, 55, 100) ; font-size:22px !important; ">
             </div>
+            <h5 id="failed" style="color:darkred; display: none; text-align: center;">Failed to login. This could be a password error or random schooltool garbage</h5>
         </form>
     </div>
-    <div class="mx-auto second d-flex justify-content-center h-100 overflow-scroll removeScroll"
-        style="width: 85%; display: none !important;">
+    <div id="loadingAnimation" style="display: none !important;" class="h-75 w-50 d-flex flex-column justify-content-center align-items-center mx-auto">
+        <img src="/static/images/schooltool_logo.png">
+        <div class="text-center w-75">
+            <h2>Loading...</h2>
+            <hr height="15px" style="height: 15px !important;">
+        </div>
+        <div class="progress w-100 align-content-center justify-content-center">
+            <div class="progress-bar" style="width: 0px;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar"></div>
+        </div>
+        <h6 class="text-center" style="color:lightslategray" id="progressBarText">:D</h6>
+    </div>
+    <div class="mx-auto second d-flex justify-content-center h-100 overflow-scroll removeScroll" style="width: 85%; display: none !important;">
         <div class="row w-100 mt-4 h-100 removeScroll">
-            <div class="col-4 bg-white rounded" style="height: 400px">
-                <h2 class="d-inline ">Overall Average: </h2> <h2 class="d-inline font-weight-bold" id="overall" style="font-weight: bold !important;"></h2>
+            <div class="col-6 bg-white rounded mb-5" style="height: 400px">
+                <h2 class="d-inline ">Overall Average: </h2>
+                <h2 class="d-inline font-weight-bold" id="overall" style="font-weight: bold !important;"></h2>
                 <hr>
                 <div id="averageDiv">
                     <table id="averageTable" class="table table-bordered table-hover table-striped">
@@ -57,10 +64,49 @@
                     </table>
                 </div>
             </div>
-            <div class="col-1" style="height: 400px">
+            <div class="col-1 mb-5" style="height: 400px">
             </div>
-            <div class="col-7 bg-white rounded" style="height: 400px">
-                something
+            <div class="col-5 mb-5 bg-white rounded" style="height: 400px;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="left-content">
+                                <img alt="Your disgusting, ugly, downright revolting picture" class="m-2" width="300" height="374" id="pureDisgust">
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="right-content">
+                                <div class="top-right">
+                                    <h2 id="yourAmazingName">ignore these placeholders, I wanted some fun</h2>
+                                    <h5 style="color:lightslategrey" id="yourEvenMoreAmazingEmail">badStudent25@qufsd.org</h5>
+                                    <hr height="5">
+                                </div>
+                                <div class="bottom-right">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div>
+                                                <p style="display: inline-block;">Addresss:&nbsp;&nbsp;
+                                                    <p id="yourHome" style="display: inline;">i'm swatting you</p>
+                                                </p>
+                                                <p style="display: inline-block;">Birth Info:&nbsp;&nbsp;
+                                                    <p id="yourUnimportantBirthday" style="display: inline;">only a few hundred million people were born today! what makes you special!</p>
+                                                </p>
+                                                <p style="display: inline-block;">Counselor:&nbsp;&nbsp;
+                                                    <p id="whoNeedsThisAnyway" style="display: inline;">i failed spelling this so many times I need my consuler</p>
+                                                </p>
+                                                <p style="display: inline-block;">Bus Info:&nbsp;&nbsp;
+                                                    <p id="actuallySomewhatImportant" style="display: inline;">too late! you missed the bus while waiting for this page to load!</p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 bg-white rounded overflow-auto removeScroll" style="height: 700px" id="assignments">
             </div>
         </div>
     </div>
@@ -71,16 +117,29 @@
 <script src="{{ url_for('static', filename='parser.js') }}"></script>
 <script>
     //Intercept form submission
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
-        if (document.getElementById("usr").value == "" || document.getElementById("pw").value == "") return
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        if (document.getElementById("usr").value == "" || document.getElementById("pw").value == "") {
+            return false
+        }
         event.preventDefault();
+        startLoadingAnimation()
         var formData = new FormData(event.target);
         fetch("/", {
-            method: "POST",
-            body: formData
-        })
+                method: "POST",
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
+                if (data["failed"] == "error") {
+                    document.getElementById("loadingAnimation").style.display = "none";
+                    document.getElementById("progressBar").setAttribute("aria-valuenow", 0);
+                    document.getElementById("progressBar").style.width = 0 + "%";
+                    document.getElementById("loginContainer").setAttribute('style', 'display:flex !important');
+                    document.getElementById("failed").style.display = "block"
+                    animeCounter = 0
+                    clearInterval(animeInterval)
+                    return
+                }
                 handleData(data)
             })
             .catch(error => {

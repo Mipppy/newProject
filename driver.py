@@ -46,14 +46,13 @@ class SchooltoolDriver():
             self.quit()
             return self.dictionaryOfScrapedData
         except Exception as e:
-            print(e)
             self.quit()
-            return e
+            return None
     
     def scrapeAssignments(self):
         self.driver.find_element(By.ID, ASSIGNMENT_TAB_ID).click()
         time.sleep(TAB_TRANSITION_TIMEOUT)
-        self.dictionaryOfScrapedData["gradeHTML"] = self.driver.find_element(By.ID, GRADE_TABLE_ID).get_attribute("innerHTML")
+        self.dictionaryOfScrapedData["gradeHTML"] = self.driver.find_element(By.ID, GRADE_TABLE_ID).get_attribute("outerHTML")
         self.driver.find_element(By.ID, GRADE_AVERAGES_BUTTON_ID).click()
         time.sleep(TAB_TRANSITION_TIMEOUT * 3)
         self.dictionaryOfScrapedData["averagesHTML"] = self.driver.find_element(By.ID, GRADE_AVERAGES_TABLE_ID).get_attribute("innerHTML")
