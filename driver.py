@@ -4,8 +4,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from variables import *
 import time,os, random
-if RUN_WINDOWLESS:
-    os.environ['MOZ_HEADLESS'] = '1'
 
 class SchooltoolDriver():
     dictionaryOfScrapedData = {}
@@ -14,9 +12,31 @@ class SchooltoolDriver():
         self.username = username
     
     def startDriver(self):
-        self.options = webdriver.FirefoxOptions()
-        self.driver = webdriver.Firefox(options=self.options) 
-    
+        if DRIVER == "firefox":
+            self.options = webdriver.FirefoxOptions()
+            if RUN_WINDOWLESS:
+                os.environ['MOZ_HEADLESS'] = '1'
+            self.driver = webdriver.Firefox(options=self.options) 
+        elif DRIVER == "chrome":
+            self.options = webdriver.ChromeOptions()
+            if RUN_WINDOWLESS:
+                self.options.add_argument("--headless")
+            self.driver = webdriver.Chrome(options=self.options)
+        elif DRIVER == "edge":
+            # why the hell would you run this bloatware ridden pathetic execuse for a browser
+            self.options = webdriver.EdgeOptions()
+            if RUN_WINDOWLESS:
+                self.options.use_chromium = True
+                self.options.add_argument("headless")
+            self.driver = webdriver.Edge(options=self.options)
+        elif DRIVER == "ie":
+            # just for funny
+            self.options = webdriver.IeOptions()
+            if RUN_WINDOWLESS:
+                raise Exception("You actually thought IE of all things supported windowless")
+            self.driver = webdriver.Ie(options=self.options)
+        else:
+            raise Exception(f"{DRIVER} is not a type of supported browser")
     def sendUserInfo(self):
         time.sleep(random.uniform(0.2, 0.6))
         self.driver.get(SCHOOLTOOL_URL)

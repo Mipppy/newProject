@@ -7,6 +7,7 @@ SCHOOLTOOL_HOME_PAGE_NAME_TITLE = "View Student Record"
 MAX_DRIVER_SIGNIN_TIME = 3
 SCHOOLTOOL_TIMEOUT_TO_AVOID_FAST_LOAD_GLITCH = 1
 RUN_WINDOWLESS = False
+DRIVER = "edge"
 
 #Scraper Elements and vars
 ASSIGNMENT_TAB_ID = "Template1_Control0_TabHeader2_Menutabs1_MenuTabAssignments"
